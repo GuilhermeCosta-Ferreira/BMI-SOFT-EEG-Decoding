@@ -1,0 +1,4 @@
+# Download pipeline (src/download)
+requests>=2.32
+tqdm>=4.66
+python-dotenv>=1.0
