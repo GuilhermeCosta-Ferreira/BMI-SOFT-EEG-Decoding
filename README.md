@@ -14,6 +14,7 @@ The project is organised following a [Lightning-Hydra–style template](https://
 
 | Folder        | Role |
 |---------------|------|
+| **`src/download/`** | Fetching session data from the EPFL MAKE archive (WebDAV). See **[`src/download/README.md`](src/download/README.md)**. |
 | **`src/data/`**   | Data preprocessing: **`processing.py`** (signal preprocessing, filtering, ICA, epochs) and **`simplify_labels.py`** (binary/specialised label modes). |
 | **`src/models/`** | Training pipeline: featureizers (Bandpower, CSP), classifiers (LDA, LogReg, SVM), evaluation. |
 | **`src/evaluation/`** | Model comparison: **`compare_training.py`** (multi-config comparison), **`run_all_comparisons.py`** (all modes + aggregate). |
@@ -25,10 +26,11 @@ The project is organised following a [Lightning-Hydra–style template](https://
 
 Workflow:
 
-1. **Preprocessing** — `src/data/processing.py`: signal preprocessing, filtering, referencing, ICA; LSL markers → integer labels; QC plots.
-2. **Label simplification** — `src/data/simplify_labels.py`: reduce to binary or specialised tasks (e.g. Hand Open vs Hand Close).
-3. **Training** — `src/train.py`: feature extraction (Bandpower, CSP) and linear classifiers (LDA, LogReg, SVM) with optional cross-validation.
-4. **Evaluation** — `src/eval.py` / `src/evaluation/`: compare multiple feature/model configs and aggregate results.
+1. **Download** — `scripts/download/download_archive.py`: pull the BIDS session data from the MAKE archive into `data/bids/`.
+2. **Preprocessing** — `src/data/processing.py`: signal preprocessing, filtering, referencing, ICA; LSL markers → integer labels; QC plots.
+3. **Label simplification** — `src/data/simplify_labels.py`: reduce to binary or specialised tasks (e.g. Hand Open vs Hand Close).
+4. **Training** — `src/train.py`: feature extraction (Bandpower, CSP) and linear classifiers (LDA, LogReg, SVM) with optional cross-validation.
+5. **Evaluation** — `src/eval.py` / `src/evaluation/`: compare multiple feature/model configs and aggregate results.
 
 -----
 
@@ -46,6 +48,11 @@ This repository contains data from multiple acquisition phases, including 2024 d
 ###  Getting Started
 
 Run all commands from the **project root**.
+
+0. **Download the data** (needs Python 3.12+, see [`src/download/README.md`](src/download/README.md)):
+   ```bash
+   python -m scripts.download.download_archive
+   ```
 
 1. **Preprocessing** (from directory containing `.xdf` files, e.g. `sub-P005`):
    ```bash
