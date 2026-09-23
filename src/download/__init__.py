@@ -1,4 +1,4 @@
 from .service import Downloader
-from .adapters import ArchiveSpecs
+from .adapters import ArchiveSpecs, MOVINGSpecs
 
-__all__ = ["Downloader", "ArchiveSpecs"]
+__all__ = ["Downloader", "ArchiveSpecs", "MOVINGSpecs"]
